@@ -1,0 +1,61 @@
+<div class="container mx-auto ">
+    <div class="font-family  bg-white md:min-h-screen my-10 mx-auto grid w-full">
+    
+        <div
+          class="  items-center md:p-8 p-6 w-full  rounded-3xl hover:rounded transition-all duration-300  lg:ml-auto">
+          <form class="max-w-lg w-full mx-auto border-2 border-orange-300 border-dashed p-8" [formGroup]="checkoutGroup " (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+              <h3 class="text-3xl  font-bold text-orange-500"> your Address</h3>
+            </div>
+  
+  
+            
+            <div class="mt-8">
+              <label class="text-white text-xs block mb-2">phone</label>
+              <div class="relative flex items-center">
+                <input formControlName="phone" name="phone" type="text"
+                  class="w-full bg-transparent text-sm shadow-shadow  text-black border-b border-main focus:border-yellow-400 pl-2 pr-8 py-3 outline-none placeholder:text-gray-400"
+                  placeholder="Enter phone"  />
+              </div>
+            </div>
+            <authentication-validate [control]="checkoutGroup.get('phone')" />
+  
+            <div class="mt-8">
+              <label class="text-white text-xs block mb-2">city</label>
+              <div class="relative flex items-center">
+                <input formControlName="city" name="city" type="text"
+                  class="w-full bg-transparent text-sm shadow-shadow  text-black border-b border-main focus:border-yellow-400 pl-2 pr-8 py-3 outline-none placeholder:text-gray-400"
+                  placeholder="Enter city"  />
+              </div>
+            </div>
+            <authentication-validate [control]="checkoutGroup.get('city')" />
+            <div class="mt-2">
+                <label class="text-white text-xs block mb-2">details</label>
+                <div class="relative flex items-center">
+                  <textarea formControlName="details" name="details" type="text"
+                    class="w-full bg-transparent shadow-shadow text-sm text-black border-b border-main focus:border-yellow-400 pl-2 pr-8 py-3 outline-none placeholder:text-gray-400"
+                    placeholder="Enter details" ></textarea>
+                </div>
+              </div>
+              <authentication-validate [control]="checkoutGroup.get('details')" />
+
+            <div class="mt-8">
+              <button [disabled]="isloading" type="submit" [class.bg-gray-200]="isloading||checkoutGroup.invalid"
+                class="btn opacity-100 translate-0">
+  
+                @if (isloading) {
+                <i class="fas fa-spin fa-spinner"></i>
+                }@else {Pay}
+              </button>
+              @if (massageError) {
+              <div class="p-4 mb-4 text-sm text-red-500 rounded-lg font-semibold  dark:bg-gray-800 dark:text-red-400"
+                role="alert">
+                {{massageError}}
+              </div>}
+  
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  

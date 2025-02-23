@@ -1,0 +1,14 @@
+<div class="grid sm:grid-cols-3 md:grid-cols-4 container gap-4 mx-auto my-15">
+@for (item of catogery; track $index) {
+<div class="max-w-sm hover:shadow-shadow hover:shadow-main/50 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+        <img class="rounded-t-lg h-[250px] w-full" [src]="item.image" alt="" />
+    </a>
+    <div class="p-5 border-gray-300 border-t-2">
+        
+            <h5 class="mb-2 text-xl font-bold tracking-tight text-main dark:text-white">{{item.name}}</h5>
+        
+        
+    </div>
+</div>
+}</div>

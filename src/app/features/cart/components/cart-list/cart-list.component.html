@@ -1,0 +1,29 @@
+@if (isloading) {
+    @if (cartItem.numOfCartItems!==0)
+ {
+    <section class="py-5 ">
+    <div class="container flex gap-6 flex-col mx-auto ">
+        <div class="flex justify-between items-center bg-main py-6 mx-20 px-10 rounded text-white font-bold">
+            <span>MY CART</span>
+            <span class="text-orange-600 font-black text-lg">{{cartItem.data.totalCartPrice}} <strong class="text-white font-medium">EGP</strong> </span>
+            <button (click)="deleteall()" class="btn opacity-100 translate-0 my-0 w-30 bg-orange-100 text-main hover:bg-orange-600 hover:text-white hover:shadow-shadow focus:shadow-0">Remove All</button>
+        </div>
+        <div class="min-h-100">
+            @for (item of cartItem.data.products; track item.product._id) {
+            <app-cart-items (colseitemid)="removeproduct($event)" (inctreaseordectese)="udatecounter($event.id,$event.count)" [productitem]="item" />}
+        </div>
+        <div class="flex justify-between  mx-20  px-5 rounded-2xl text-white font-bold">
+            <button routerLink="/products" class="btn opacity-100 translate-0 py-4 w-80 bg-orange-500 text-white hover:bg-orange-100 hover:text-main hover:shadow-shadow focus:shadow-0">continue shopping </button>
+            <button [routerLink]="['/checkout',cartItem.cartId]"  class="btn opacity-100 translate-0 py-4 w-80 bg-orange-100 text-main hover:bg-orange-600 hover:text-white hover:shadow-shadow focus:shadow-0">Pay Now</button>
+
+        </div>
+    </div>
+</section>
+}@else {
+    <div class="min-w-screen min-h-screen flex flex-col justify-center items-center text-red-600 font-bold text-3xl">
+    <img src="images/272-2727925_cart-png.png" alt="" class="w-100 mb-10">
+    <h1>Cart Is Empty</h1>
+    <button routerLink="/products" class="btn opacity-100 translate-0 py-4 w-80 bg-orange-500 text-white hover:bg-orange-100 hover:text-main hover:shadow-shadow focus:shadow-0">continue shopping </button>
+
+</div>}
+}

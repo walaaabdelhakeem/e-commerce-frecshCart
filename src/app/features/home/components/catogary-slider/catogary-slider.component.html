@@ -1,0 +1,13 @@
+<owl-carousel-o [options]="customOptions">
+@for (item of catogery; track item._id) {
+  <ng-container >
+      <ng-template carouselSlide >
+        <div>
+            <img [src]="item.image" alt="" class="md:h-[200px] h-[100px] ">
+            <h3 class="text-main">{{item.name}} </h3>
+        </div>
+      </ng-template>
+    </ng-container>
+     }
+
+  </owl-carousel-o>

@@ -1,0 +1,19 @@
+<div id="alert-1" class="relative shadow-shadow flex items-center p-4 mb-4 text-main  bg-orange-50 dark:bg-main/5 mx-20 dark:text-blue-400" role="alert">
+    <img [src]="productitem.product!.imageCover" alt="" class="w-15">
+    <span class="sr-only">Info</span>
+    <div class=" text-sm  ms-6  ">
+        <h3 class="font-bold" >{{productitem.product!.title}}</h3>
+        <p class="text-sm">Price : <span class="text-orange-500 font-black">{{productitem.price}}</span></p>
+    </div>
+    <div class="ms-auto">
+        <i (click)="update(productitem.count+1)" class="fa-solid fa-arrow-up cursor-pointer hover:text-green-800 transition-all duration-300"></i>
+        <span class="text-orange-500 px-4 m-2 font-black rounded">{{productitem.count}}</span>
+        <i (click)="update(productitem.count-1)" class="fa-solid fa-arrow-down cursor-pointer hover:text-green-800 transition-all duration-300"></i>
+    </div>
+      <button type="button" (click)="removeitem()" class="cursor-pointer absolute -top-1 -right-1 -mx-1.5 -my-1.5  text-main rounded-4xl bg-main/10 text-xs focus:ring-2 focus:ring-red-500 p-1.5 hover:bg-red-100 hover:text-red-400 inline-flex items-center justify-center h-6 w-6 " data-dismiss-target="#alert-1" aria-label="Close">
+        <span class="sr-only">Close</span>
+        <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+        </svg>
+    </button>
+  </div>
