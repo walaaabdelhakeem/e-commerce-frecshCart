@@ -10,7 +10,7 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  @Input() layout!: string
+  @Input() layout: string = ''
   private readonly logout = inject(IauthService);
   platformId = inject(PLATFORM_ID);
 

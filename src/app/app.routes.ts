@@ -32,7 +32,7 @@ export const routes: Routes = [
     {
         path: '', component: UserComponent, canActivate: [homeguardGuard], children: [
             { path: '', redirectTo: "home", pathMatch: 'full' },
-            { path: 'home', component: HomeComponent, title: 'Home' },
+            { path: 'home', component: HomeComponent},
             { path: 'category', component: CatogaryComponent },
             { path: 'products', component: ProductListComponent },
             { path: 'products-details/:id', component: ProductDetailsComponent },

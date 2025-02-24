@@ -18,7 +18,6 @@ export class CatogarySliderComponent implements OnInit {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    
     dots: true,
    
     navSpeed: 700,
