@@ -36,6 +36,7 @@ export class ProductListComponent implements OnInit {
         next: (res) => {
           console.log(res)
           this.showToastr('Product added successfully');
+          this.cartservicesService.counter.next(res.numOfCartItems)
         }
       })
   }

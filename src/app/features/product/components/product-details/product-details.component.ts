@@ -38,6 +38,7 @@ export class ProductDetailsComponent implements OnInit {
       {
         next: (res) => {
           console.log(res)
+          this.cartservicesService.counter.next(res.numOfCartItems);
           this.showToastr('Product added successfully');
         }
       })

@@ -23,6 +23,7 @@ addtocartputn(id: string) {
       next: (res) => {
         this.removeitem()
         this.showToastr('Product added successfully');
+        this.cartservicesService.counter.next(res.numOfCartItems)
       }
     })
 }
