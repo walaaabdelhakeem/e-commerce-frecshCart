@@ -17,6 +17,7 @@ import { CheckoutComponent } from './features/orders/component/checkout/checkout
 import { AllordersComponent } from './features/orders/component/allorders/allorders.component';
 import { ForgetpassComponent } from './core/auth/componentes/forgetpass/forgetpass.component';
 import { WishListComponent } from './features/wishlist/component/wish-list/wish-list.component';
+import { myResolverResolver } from './core/guards/my-resolver.resolver';
 
 export const routes: Routes = [
     { path: '', redirectTo: "home", pathMatch: 'full' },
@@ -30,7 +31,7 @@ export const routes: Routes = [
         ]
     },
     {
-        path: '', component: UserComponent, canActivate: [homeguardGuard], children: [
+        path: '', component: UserComponent, resolve: { tokenValid:myResolverResolver}, children: [
             { path: '', redirectTo: "home", pathMatch: 'full' },
             { path: 'home', component: HomeComponent},
             { path: 'category', component: CatogaryComponent },
