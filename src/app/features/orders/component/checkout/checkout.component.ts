@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { IauthService } from '../../../../core/auth/services/iauth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationValidateComponent } from '../../../../shared/components/authentication-validate/authentication-validate.component';
 import { OrderService } from '../../services/order.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -12,7 +13,7 @@ import { OrderService } from '../../services/order.service';
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
 })
-export class CheckoutComponent {
+export class CheckoutComponent implements OnDestroy{
   isloading: boolean = false;
   showpassword = false
   private readonly orderService = inject(OrderService);
@@ -22,6 +23,8 @@ export class CheckoutComponent {
   massageError: string = '';
   cartid:string|null=''
   checkoutGroup!: FormGroup;
+    private unsub:Subscription=new Subscription()
+  
   // checkoutGroup  = new FormGroup({
   formcheckout() {
     this.checkoutGroup = this.formbuilder.group({
@@ -52,7 +55,7 @@ this.cartid=res.get('cartid')
   onSubmit() {
     this.isloading = true
     if (this.checkoutGroup.valid) {
-      this.orderService.Checkoutsession(this.cartid,this.checkoutGroup.value).subscribe({
+    this.unsub=  this.orderService.Checkoutsession(this.cartid,this.checkoutGroup.value).subscribe({
         next:(res)=>{
           console.log(res)
           this.isloading=false;
@@ -63,5 +66,7 @@ this.cartid=res.get('cartid')
       this.checkoutGroup.markAllAsTouched()
     }
   }
- 
+ ngOnDestroy(): void {
+   this.unsub.unsubscribe()
+ }
 }

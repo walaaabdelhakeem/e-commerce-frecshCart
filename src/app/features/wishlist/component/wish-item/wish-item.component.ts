@@ -1,7 +1,9 @@
-import { Component, inject, Input, output } from '@angular/core';
+import { Component, inject, Input, OnDestroy, output } from '@angular/core';
 import { Datum } from '../../mobels/iwishlist';
 import { CartservicesService } from '../../../cart/services/cartservices.service';
 import { ToastrService } from 'ngx-toastr';
+import { unsubscribe } from 'node:diagnostics_channel';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-wish-item',
@@ -9,21 +11,22 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './wish-item.component.html',
   styleUrl: './wish-item.component.css'
 })
-export class WishItemComponent {
+export class WishItemComponent implements OnDestroy{
 @Input() productitem:Datum={}as Datum 
   private cartservicesService = inject(CartservicesService)
-private toastr=inject( ToastrService)
+private toastr=inject( ToastrService);
 colseitemid=output<string>();
+private  unsub:Subscription= new  Subscription()
 removeitem(){
   this.colseitemid.emit(this.productitem._id)
 }
 addtocartputn(id: string) {
-  this.cartservicesService.addTOCart(id).subscribe(
+ this.unsub= this.cartservicesService.addTOCart(id).subscribe(
     {
       next: (res) => {
         this.removeitem()
         this.showToastr('Product added successfully');
-        this.cartservicesService.counter.next(res.numOfCartItems)
+        this.cartservicesService.counter.set(res.numOfCartItems)
       }
     })
 }
@@ -35,5 +38,8 @@ showToastr(msg:string) {
     // easeTime:1000,
     progressBar:true
   });
+}
+ngOnDestroy(): void {
+  this.unsub.unsubscribe()
 }
 }

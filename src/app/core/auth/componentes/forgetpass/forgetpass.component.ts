@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -6,6 +6,7 @@ import { OrderService } from '../../../../features/orders/services/order.service
 import { AuthenticationValidateComponent } from '../../../../shared/components/authentication-validate/authentication-validate.component';
 import { ForgetpasswordService } from '../../services/forgetpassword.service';
 import { IauthService } from '../../services/iauth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-forgetpass',
@@ -13,7 +14,7 @@ import { IauthService } from '../../services/iauth.service';
   templateUrl: './forgetpass.component.html',
   styleUrl: './forgetpass.component.css'
 })
-export class ForgetpassComponent {
+export class ForgetpassComponent implements OnDestroy {
 
   isloading: boolean = false;
   showpassword = false
@@ -23,6 +24,10 @@ export class ForgetpassComponent {
   
   private readonly router = inject(Router);
   private readonly formbuilder = inject(FormBuilder);
+    private unsub:Subscription=new Subscription()
+    private unsub2:Subscription=new Subscription()
+    private unsub3:Subscription=new Subscription()
+  
   massageError: string = '';
   cartid:string|null=''
   emailGroup!: FormGroup;
@@ -64,7 +69,7 @@ export class ForgetpassComponent {
   onSubmit() {
     this.isloading = true
     if (this.emailGroup.valid) {
-      this.forgetpasswordService.forgotPassword(this.emailGroup.value).subscribe({
+    this.unsub=  this.forgetpasswordService.forgotPassword(this.emailGroup.value).subscribe({
         next:(res)=>{
           if(res.statusMsg==='success'){
             this.step=2
@@ -78,7 +83,7 @@ export class ForgetpassComponent {
   onSubmitcode() {
     this.isloading = true
     if (this.resetCodegroup.valid) {
-      this.forgetpasswordService.verifyResetCode(this.resetCodegroup.value).subscribe({
+    this.unsub2=  this.forgetpasswordService.verifyResetCode(this.resetCodegroup.value).subscribe({
         next:(res)=>{
           console.log(res)
           if(res.status==='Success'){
@@ -93,13 +98,18 @@ export class ForgetpassComponent {
   onSubmitreset() {
     this.isloading = true
     if (this.repasswordgroup.valid) {
-      this.forgetpasswordService.resetPassword(this.repasswordgroup.value).subscribe({
+    this.unsub3=  this.forgetpasswordService.resetPassword(this.repasswordgroup.value).subscribe({
         next:(res)=>{
           this.authService.setLocalstorgeToken(res.token)
             this.router.navigate(['/home'])
         }
       })
     } 
+  }
+  ngOnDestroy(): void {
+    this.unsub.unsubscribe()
+    this.unsub2.unsubscribe()
+    this.unsub3.unsubscribe()
   }
 }
 

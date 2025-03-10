@@ -1,22 +1,25 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Router, RouterLink } from '@angular/router';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Subscription } from 'rxjs';
 import { AuthenticationValidateComponent } from "../../../../shared/components/authentication-validate/authentication-validate.component";
-import { IauthService } from '../../services/iauth.service';
 import { validaterepassword } from '../../../../shared/helpers/funpassword';
+import { IauthService } from '../../services/iauth.service';
 @Component({
   selector: 'app-register',
   imports: [RouterLink, ReactiveFormsModule, AuthenticationValidateComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit,OnDestroy {
   isloading: boolean = false;
   showpassword = false
   private readonly registerservice = inject(IauthService);
   private readonly router = inject(Router);
   massageError: string = '';
-  registerGroup!: FormGroup
+  registerGroup!: FormGroup;
+    private unsub:Subscription=new Subscription()
+  
   formregister() {
     this.registerGroup = new FormGroup({
       name: new FormControl(null, [
@@ -46,7 +49,7 @@ export class RegisterComponent implements OnInit {
     this.isloading = true
     if (this.registerGroup.valid) {
       console.log(this.registerGroup);
-      this.registerservice.register(this.registerGroup.value).subscribe({
+     this.unsub= this.registerservice.register(this.registerGroup.value).subscribe({
         next: (res) => {
           this.isloading = false;
           console.log(res)
@@ -68,5 +71,9 @@ export class RegisterComponent implements OnInit {
   }
   shpwpass() {
     this.showpassword = !this.showpassword
+  }
+  ngOnDestroy():void
+  {
+    this.unsub.unsubscribe()
   }
 }

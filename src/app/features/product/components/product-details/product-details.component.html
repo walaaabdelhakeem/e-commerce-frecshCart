@@ -1,34 +1,44 @@
-<section>
-    <div class="container mx-auto my-20">
+<section class="py-20">
+    <div class="container mx-auto">
         <div class="grid gap-5 sm:grid-cols-12">
-            <div class="col-span-6">
-                <div class="grid gap-4 place-self-center  ">
-                    <div class="justify-center items-center flex">
-                        <img class=" w-100 h-100 rounded-lg " [src]="detailsProduct.imageCover" alt="">
-                    </div>
-                    <div class="flex justify-center items-center gap-4 ">
-                        @for (item of detailsProduct.images; track $index) {
-                        <div class="flex-auto">
-                            <img class="h-auto max-w-full rounded-lg" [src]="item" alt="">
+            <div class="col-span-6 flex flex-col items-center">
+                <div class="w-full flex justify-center">
+                    <img class="w-96 h-96 rounded-lg object-cover shadow-lg" [src]="!itemsrc?detailsProduct.imageCover:itemsrc" alt="">
+                </div>
+                <div class="flex justify-center flex-wrap items-center gap-4 mt-4 ">
+                    @for (item of detailsProduct.images; track $index) {
+                        <div class="w-20 h-20 "  (click)="str(item)">
+                            <img class="w-full h-full rounded-lg object-cover shadow-md hover:scale-110 transition-transform duration-300"
+                                [src]="item" alt="">
                         </div>
-
-                        }
-                    </div>
+                    }
                 </div>
             </div>
             <div class="col-span-6 sm:px-1 px-4">
                 <div>
-                    <h2 class="md:text-4xl font-bold capitalize text-main">{{detailsProduct.title}}</h2>
-                    <h4 class="md:text-xl my-2 px-3">{{detailsProduct.category!.slug}}</h4>
-                    <p class="px-4">{{detailsProduct.description}}</p>
-                    <div class="text-green-900 font-extrabold my-3 px-4 dark:text-white text-2xl ">
-                        {{detailsProduct.price}} EGP</div>
-
+                    <h2 class="text-3xl md:text-4xl font-bold capitalize text-main">
+                        {{ detailsProduct.title }}
+                    </h2>
+                    <h4 class="text-lg md:text-xl my-2 px-3 text-gray-600">
+                        {{ detailsProduct.category!.slug }}
+                    </h4>
+                    
+                    <h4 class="text-lg md:text-xl my-2 px-3 text-red-500">
+                        {{ detailsProduct.quantity|guantity:100 }}
+                    </h4>
+                    <p class="px-4 text-gray-700">
+                        {{ detailsProduct.description }}
+                    </p>
+                    <div class="text-green-900 font-extrabold my-3 px-4 text-2xl dark:text-white">
+                        {{ detailsProduct.price }} EGP
+                    </div>
                 </div>
-                <div class="text-end">
-                    <button (click)="addtocartputn(detailsProduct._id)"
-                        class="shadow-shadow py-2 bg-main/10 w-full font-black text-orange-500   my-5 border-b-2 border-main rounded-2xl   opacity-100 cursor-pointer">
-                        <i class="fa-solid fa-cart-flatbed-suitcase"></i> Add To Cart</button>
+                <div class="text-end mt-5">
+                    <button (click)="addtocartputn(detailsProduct.id)"
+                        class="btn opacity-100 translate-0">
+                        <i class="fa-solid fa-cart-flatbed-suitcase"></i>
+                        Add To Cart
+                    </button>
                 </div>
             </div>
         </div>

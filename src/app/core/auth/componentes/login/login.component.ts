@@ -1,9 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 
 import { IauthService } from '../../services/iauth.service';
 import { Router, RouterLink } from '@angular/router';
 import { AuthenticationValidateComponent } from '../../../../shared/components/authentication-validate/authentication-validate.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { AuthenticationValidateComponent } from '../../../../shared/components/a
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnDestroy {
   isloading: boolean = false;
   showpassword = false
   private readonly registerservice = inject(IauthService);
@@ -19,6 +20,8 @@ export class LoginComponent implements OnInit {
   private readonly formbuilder = inject(FormBuilder);
   massageError: string = '';
   registerGroup!: FormGroup;
+    private unsub:Subscription=new Subscription()
+  
   // registerGroup  = new FormGroup({
   formregister() {
     this.registerGroup = this.formbuilder.group({
@@ -43,7 +46,7 @@ export class LoginComponent implements OnInit {
     this.isloading = true
     if (this.registerGroup.valid) {
       console.log(this.registerGroup);
-      this.registerservice.login(this.registerGroup.value).subscribe({
+    this.unsub=  this.registerservice.login(this.registerGroup.value).subscribe({
         next: (res) => {
           this.isloading = false;
           if (res.message = 'success') {
@@ -63,6 +66,9 @@ export class LoginComponent implements OnInit {
   
   shpwpass() {
     this.showpassword = !this.showpassword
+  }
+  ngOnDestroy(): void {
+    this.unsub.unsubscribe()
   }
 }
 

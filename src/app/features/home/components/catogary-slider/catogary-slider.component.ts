@@ -1,7 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { HomecatpgeriesService } from '../../services/homecatpgeries.service';
 import { Icarogery } from '../../models/icarogery';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,9 +11,11 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
   templateUrl: './catogary-slider.component.html',
   styleUrl: './catogary-slider.component.css'
 })
-export class CatogarySliderComponent implements OnInit {
+export class CatogarySliderComponent implements OnInit,OnDestroy {
   private catogeryservice = inject(HomecatpgeriesService)
   catogery: Icarogery[] = [{}] as Icarogery[]
+    private unsub:Subscription=new Subscription()
+  
   customOptions: OwlOptions = {
     loop: false,
     mouseDrag: true,
@@ -39,7 +42,7 @@ export class CatogarySliderComponent implements OnInit {
     nav: false
   }
   getallcatogeryhome() {
-    this.catogeryservice.gelallhomecategoery().subscribe({
+   this.unsub= this.catogeryservice.gelallhomecategoery().subscribe({
       next: (res) => {
         this.catogery = res.data;
         console.log(this.catogery);
@@ -48,5 +51,8 @@ export class CatogarySliderComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getallcatogeryhome();
+  }
+  ngOnDestroy(): void {
+    this.unsub.unsubscribe();
   }
 }

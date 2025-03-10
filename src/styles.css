@@ -28,12 +28,12 @@ body {
     justify-content: space-between;
     min-height: 100vh;
 }
-
+/* 
 @media (width >=96rem) {
     .container {
         max-width: 86rem;
     }
-}
+} */
 
 /* position */
 .toast-center-center {
