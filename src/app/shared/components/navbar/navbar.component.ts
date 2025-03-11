@@ -30,17 +30,16 @@ export class NavbarComponent implements OnInit {
     //     this.count = res;
     //   }
     // })
-    // this.cartservicesService.getLoggeduse().subscribe({
-    //   next: (res) => {
-    //     this.count = res.numOfCartItems
-    //   }
-    // })
+    this.cartservicesService.getLoggeduse().subscribe({
+      next: (res) => {
+        this.cartservicesService.counter.set( res.numOfCartItems)
+      }
+    })
 
   }
+
   changlang(lang: string) {
     this.translationService.changeLang(lang)
-    window.location.reload();
-
   }
 
 }

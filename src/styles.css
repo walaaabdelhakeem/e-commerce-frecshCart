@@ -20,7 +20,13 @@
         @apply  shadow-xl py-3 px-6 text-sm cursor-pointer text-gray-800 font-semibold bg-yellow-400 rounded w-full transform duration-300 hover:rounded-4xl 
     }
 }
-
+::-webkit-scrollbar-thumb{
+background-color:orangered;
+border-radius: 30px;
+}
+::-webkit-scrollbar{
+width: 8px;
+}
 body {
     font-family: var(--font-family) !important;
     display: flex;

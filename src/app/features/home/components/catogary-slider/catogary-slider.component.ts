@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-catogary-slider',
   imports: [CarouselModule],
   templateUrl: './catogary-slider.component.html',
-  styleUrl: './catogary-slider.component.css'
+  styleUrl: './catogary-slider.component.css',
 })
 export class CatogarySliderComponent implements OnInit,OnDestroy {
   private catogeryservice = inject(HomecatpgeriesService)
@@ -22,7 +22,7 @@ export class CatogarySliderComponent implements OnInit,OnDestroy {
     touchDrag: true,
     pullDrag: true,
     dots: true,
-   
+    rtl:true,
     navSpeed: 700,
     navText: ['', ''],
     responsive: {

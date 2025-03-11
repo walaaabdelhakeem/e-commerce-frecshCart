@@ -13,7 +13,7 @@ export class MainSliderComponent {
     mouseDrag: true,
     touchDrag: false,
     pullDrag: true,
-    
+    rtl:true,
     dots: false,
     navSpeed: 700,
     navText: ['', ''],
