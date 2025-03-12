@@ -18,7 +18,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes, withHashLocation()), provideClientHydration(withEventReplay()),
   provideHttpClient(withFetch(), withInterceptors([authInterceptor, loadingInterceptor])),
-  importProvidersFrom(BrowserAnimationsModule, NgxSpinnerModule, TranslateModule.forRoot({
+  importProvidersFrom(BrowserAnimationsModule,NgxSpinnerModule, TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,
       useFactory: HttpLoaderFactory,

@@ -9,8 +9,9 @@ import { environment } from '../../../../environments/environments';
 })
 export class ProductservicesService {
   constructor(private http:HttpClient) { }
-  getproducts():Observable<any>{
-    return this.http.get(`${environment.baseUrl}products`)
+  getproducts(page: number):Observable<any>{
+    
+    return this.http.get(`${environment.baseUrl}products?limit=20&page=${page}`)
   }
   getproductdetails(id:string|null):Observable<any>{
     return this.http.get(`${environment.baseUrl}products/${id}`)

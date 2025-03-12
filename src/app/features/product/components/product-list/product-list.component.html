@@ -21,14 +21,20 @@
 
 
         <div class=" grid mx-10 sm:mx-1 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-12">
-            @for (product of allProducts |search:textsearch; track product._id) {
-            <app-product-card [product]="product" (addtocart)="addtocartputn($event)"
+            @for (product of (allProducts | search:textsearch) | paginate: { id: 'tasks',
+            itemsPerPage: 20,
+            currentPage: page,
+            totalItems: total }; track product._id) {
+                <app-product-card [product]="product" (addtocart)="addtocartputn($event)"
                 (addtowish)="addtowishlist($event)" />
+            
             }@empty {
             <div class="col-span-12 h-full flex justify-center items-center">
                 <img class="w-[25rem] "
                     src="images/DALL·E 2025-03-07 19.30.24 - A creative illustration of a person looking disappointed and confused while searching for a product in a store or online platform. The person is surro.webp">
             </div>}
+        </div>
+        <div class="flex justify-center"><pagination-controls (pageChange)="changepage($event)" id='tasks'></pagination-controls>
         </div>
     </div>
 </section>

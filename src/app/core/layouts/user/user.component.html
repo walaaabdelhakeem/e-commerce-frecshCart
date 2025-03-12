@@ -1,2 +1,12 @@
 <app-navbar layout="user" />
 <router-outlet></router-outlet>
+@if (showbtn==true) {
+<button type="button" (click)="uptop()"
+    class="text-white bg-main hover:bg-main/70 focus:ring-4 fixed bottom-0 right-0 z-50 mr-10 mb-10  focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+    <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+        viewBox="0 0 16 10">
+        <path d="M9.207 1A2 2 0 0 0 6.38 1L.793 6.586A2 2 0 0 0 2.207 10H13.38a2 2 0 0 0 1.414-3.414L9.207 1Z" />
+    </svg>
+
+    <span class="sr-only">Icon description</span>
+</button>}

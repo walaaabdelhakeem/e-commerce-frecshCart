@@ -22,7 +22,7 @@ export class CatogarySliderComponent implements OnInit,OnDestroy {
     touchDrag: true,
     pullDrag: true,
     dots: true,
-    rtl:true,
+    rtl:document.documentElement.lang=='ar'?true:false,
     navSpeed: 700,
     navText: ['', ''],
     responsive: {

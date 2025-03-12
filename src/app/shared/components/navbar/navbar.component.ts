@@ -40,6 +40,7 @@ export class NavbarComponent implements OnInit {
 
   changlang(lang: string) {
     this.translationService.changeLang(lang)
+    window.location.reload()
   }
 
 }

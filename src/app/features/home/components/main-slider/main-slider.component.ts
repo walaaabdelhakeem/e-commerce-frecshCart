@@ -8,12 +8,13 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
   styleUrl: './main-slider.component.css'
 })
 export class MainSliderComponent {
+  
   customOptions: OwlOptions = {
     loop: false,
     mouseDrag: true,
     touchDrag: false,
     pullDrag: true,
-    rtl:true,
+    rtl:document.documentElement.lang=='ar'?true:false,
     dots: false,
     navSpeed: 700,
     navText: ['', ''],
@@ -32,5 +33,6 @@ export class MainSliderComponent {
       }
     },
     nav: false
-  }
+  };
+  
 }

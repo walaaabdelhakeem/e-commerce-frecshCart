@@ -8,27 +8,33 @@ import { WishlistService } from '../../../wishlist/servises/wishlist.service';
 import { FormsModule } from '@angular/forms';
 import { SearchPipe } from '../../../../shared/pipes/search.pipe';
 import { Subscription } from 'rxjs';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-product-list',
-  imports: [ProductCardComponent,FormsModule,SearchPipe],
+  imports: [ProductCardComponent,FormsModule,SearchPipe,NgxPaginationModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent implements OnInit,OnDestroy {
   textsearch:string=''
+  page: number = 1; 
+  total:number=1;
   allProducts: Iproduct[] = []
   private products = inject(ProductservicesService)
   private cartservicesService = inject(CartservicesService)
   private wishlistService = inject(WishlistService)
   private toastr=inject( ToastrService)
   private unsub:Subscription=new Subscription()
+  private unsub2:Subscription=new Subscription()
+  private unsub3:Subscription=new Subscription()
   
   getAllProduct() {
-  this.unsub=  this.products.getproducts().subscribe({
-      next: ({ data }) => {
+  this.unsub= this.products.getproducts(this.page).subscribe({
+      next: ( data ) => {
         console.log(data)
-        this.allProducts = data;
+        this.allProducts = data.data;
+        this.total=data.results;
       }, error: (err) => {
         console.log(err)
       }
@@ -37,7 +43,7 @@ export class ProductListComponent implements OnInit,OnDestroy {
   
   
   addtocartputn(id: string) {
-    this.cartservicesService.addTOCart(id).subscribe(
+   this.unsub2= this.cartservicesService.addTOCart(id).subscribe(
       {
         next: (res) => {
           console.log(res)
@@ -50,7 +56,7 @@ export class ProductListComponent implements OnInit,OnDestroy {
     let isInWishlist = JSON.parse(localStorage.getItem(`wishlist-${id}`) || 'false');
   
     if (isInWishlist) { 
-      this.wishlistService.addTOwishlist(id).subscribe({
+   this.unsub2=this.wishlistService.addTOwishlist(id).subscribe({
         next: (res) => {
           console.log(res);
           this.showToastr('Product added successfully');
@@ -58,7 +64,7 @@ export class ProductListComponent implements OnInit,OnDestroy {
         }
       });
     } else { 
-      this.wishlistService.removespecificwishlistItem(id).subscribe({
+      this.unsub3=this.wishlistService.removespecificwishlistItem(id).subscribe({
         next: (res) => {
           console.log(res);
           this.showToastr('haert removed successfully ');
@@ -77,11 +83,17 @@ export class ProductListComponent implements OnInit,OnDestroy {
       progressBar:true
     });
   }
+  changepage(event:number){
+    this.page=event;
+    this.getAllProduct()
+  }
   ngOnInit(): void {
     this.getAllProduct()
     
   }
   ngOnDestroy(): void {
     this.unsub.unsubscribe()
+    this.unsub2.unsubscribe()
+    this.unsub3.unsubscribe()
   }
 }

@@ -21,6 +21,8 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
   id: string | null = ''
   detailsProduct: Iproduct = {} as Iproduct
   private unsub:Subscription=new Subscription()
+  private unsub2:Subscription=new Subscription()
+  private unsub3:Subscription=new Subscription()
   getproductId() {
 
  this.unsub=   this.ActivatedRoute.paramMap.subscribe({
@@ -30,14 +32,14 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
     })
   }
   getproductIddetails() {
-    this.idhttp.getproductdetails(this.id).subscribe({
+   this.unsub2= this.idhttp.getproductdetails(this.id).subscribe({
       next: ({ data }) => {
         this.detailsProduct = data
       }
     })
   }
   addtocartputn(id:string) {
-    this.cartservicesService.addTOCart(id).subscribe(
+   this.unsub3= this.cartservicesService.addTOCart(id).subscribe(
       {
         next: (res) => {
           console.log(res)
@@ -65,5 +67,7 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
   }
   ngOnDestroy(): void {
     this.unsub.unsubscribe()
+    this.unsub2.unsubscribe()
+    this.unsub3.unsubscribe()
   }
 }
