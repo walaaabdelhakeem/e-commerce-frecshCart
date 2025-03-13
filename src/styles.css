@@ -43,12 +43,12 @@ body {
 .ngx-pagination a{
   color: orangered !important;
 }
-/* 
+
 @media (width >=96rem) {
     .container {
         max-width: 86rem;
     }
-} */
+}
 
 /* position */
 .toast-center-center {
