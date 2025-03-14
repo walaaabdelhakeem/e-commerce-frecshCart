@@ -23,24 +23,26 @@ export class IauthService {
     return this.http.get(`${environment.baseUrl}auth/verifyToken`)
   }
   setLocalstorgeToken(token: string): void {
-    try{ if(typeof localStorage!='undefined'){
-    localStorage.setItem('token', token)
-    this.userData = jwtDecode(localStorage.getItem('token')!);
-    console.log(this.userData)}}
-    catch{this.logoutfunc}
-  }
-  checkifuserExist(): string|null {
-    console.log('checkifuserExist')
-    if(typeof localStorage!='undefined'){
-      
-    return localStorage.getItem('token')!
-    
+    try {
+      if (typeof localStorage != 'undefined') {
+        localStorage.setItem('token', token)
+        this.userData = jwtDecode(localStorage.getItem('token')!);
+        localStorage.setItem('id', this.userData.id)
+
+        console.log(this.userData)
+      }
     }
-  return null
+    catch { this.logoutfunc }
+  }
+  checkifuserExist(): string | null {
+    console.log('checkifuserExist')
+    if (typeof localStorage != 'undefined') {
+      return localStorage.getItem('token')!
+    }
+    return null
   }
   logoutfunc(): void {
     console.log('logoutfunc')
-
     localStorage.removeItem('token');
     this.userData = null
     this.router.navigate(['/login'])
