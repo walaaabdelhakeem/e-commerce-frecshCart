@@ -6,12 +6,18 @@
                     <img class="w-96 h-96 rounded-lg object-cover shadow-lg" [src]="!itemsrc?detailsProduct.imageCover:itemsrc" alt="">
                 </div>
                 <div class="flex justify-center flex-wrap items-center gap-4 mt-4 ">
+                    
+
                     @for (item of detailsProduct.images; track $index) {
+                        
                         <div class="w-20 h-20 "  (click)="str(item)">
                             <img class="w-full h-full rounded-lg object-cover shadow-md hover:scale-110 transition-transform duration-300"
                                 [src]="item" alt="">
                         </div>
+                    
                     }
+                
+
                 </div>
             </div>
             <div class="col-span-6 sm:px-1 px-4">
@@ -20,11 +26,11 @@
                         {{ detailsProduct.title }}
                     </h2>
                     <h4 class="text-lg md:text-xl my-2 px-3 text-gray-600">
-                        {{ detailsProduct.category!.slug }}
+                        {{ detailsProduct.category.slug }}
                     </h4>
                     
                     <h4 class="text-lg md:text-xl my-2 px-3 text-red-500">
-                        {{ detailsProduct.quantity|guantity:100 }}
+                        {{ detailsProduct.quantity|guantity:20 }}
                     </h4>
                     <p class="px-4 text-gray-700">
                         {{ detailsProduct.description }}

@@ -11,7 +11,7 @@ export class OrderService {
 
   constructor(private http: HttpClient, private httpservice: IauthService) { }
   Checkoutsession(id: string | null, shippingAddress: { details: string, phone: string, city: string }): Observable<any> {
-    const baseurl = encodeURIComponent('?url=https://e-commerce-frecsh-cart.vercel.app/#')
+    const baseurl = `?url=${encodeURIComponent('https://e-commerce-frecsh-cart.vercel.app/#')}`;
     return this.http.post(`${environment.baseUrl}orders/checkout-session/${id}` + baseurl, shippingAddress)
   }
 }

@@ -1,8 +1,15 @@
 <section class="my-10">
     <div class="container mx-auto">
+        <div class="flex gap-3 my-10 flex-row justify-items-center items-center "> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-arrow-right-from-line text-main text-3xl font-bold">
+                <path d="M3 5v14" />
+                <path d="M21 12H7" />
+                <path d="m15 18 6-6-6-6" />
+            </svg>
+            <h2 class="font-bold text-black/70 text-4xl font-serif ">All Product </h2>
 
-
-        <label for="default-search"
+        </div> <label for="default-search"
             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div class="relative mb-7">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -25,16 +32,17 @@
             itemsPerPage: 20,
             currentPage: page,
             totalItems: total }; track product._id) {
-                <app-product-card [product]="product" (addtocart)="addtocartputn($event)"
+            <app-product-card [product]="product" (addtocart)="addtocartputn($event)"
                 (addtowish)="addtowishlist($event)" />
-            
+
             }@empty {
             <div class="col-span-12 h-full flex justify-center items-center">
                 <img class="w-[25rem] "
                     src="images/DALL·E 2025-03-07 19.30.24 - A creative illustration of a person looking disappointed and confused while searching for a product in a store or online platform. The person is surro.webp">
             </div>}
         </div>
-        <div class="flex justify-center"><pagination-controls (pageChange)="changepage($event)" id='tasks'></pagination-controls>
+        <div class="flex justify-center"><pagination-controls (pageChange)="changepage($event)"
+                id='tasks'></pagination-controls>
         </div>
     </div>
 </section>

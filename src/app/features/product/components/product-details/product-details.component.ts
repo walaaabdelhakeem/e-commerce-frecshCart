@@ -6,40 +6,57 @@ import { CartservicesService } from '../../../cart/services/cartservices.service
 import { ToastrService } from 'ngx-toastr';
 import { GuantityPipe } from '../../../../shared/pipes/guantity.pipe';
 import { Subscription } from 'rxjs';
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-product-details',
-  imports: [GuantityPipe],
+  imports: [GuantityPipe, CarouselModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
-export class ProductDetailsComponent implements OnInit,OnDestroy {
+export class ProductDetailsComponent implements OnInit, OnDestroy {
   private readonly ActivatedRoute = inject(ActivatedRoute);
   private readonly idhttp = inject(ProductservicesService)
   private cartservicesService = inject(CartservicesService)
   private toastr = inject(ToastrService)
   id: string | null = ''
   detailsProduct: Iproduct = {} as Iproduct
-  private unsub:Subscription=new Subscription()
-  private unsub2:Subscription=new Subscription()
-  private unsub3:Subscription=new Subscription()
-  getproductId() {
+  private unsub: Subscription = new Subscription()
+  private unsub2: Subscription = new Subscription()
+  private unsub3: Subscription = new Subscription()
 
- this.unsub=   this.ActivatedRoute.paramMap.subscribe({
+  customOptions: OwlOptions = {
+    loop: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    rtl: document.documentElement.lang == 'ar' ? true : false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: { items: 2 },
+      600: { items: 3 },
+      1000: { items: 5 }
+    },
+    nav: false
+  }
+  getproductId() {
+    this.unsub = this.ActivatedRoute.paramMap.subscribe({
       next: (res) => {
         this.id = res.get('id')
       }
     })
   }
   getproductIddetails() {
-   this.unsub2= this.idhttp.getproductdetails(this.id).subscribe({
+    this.unsub2 = this.idhttp.getproductdetails(this.id).subscribe({
       next: ({ data }) => {
         this.detailsProduct = data
       }
     })
   }
-  addtocartputn(id:string) {
-   this.unsub3= this.cartservicesService.addTOCart(id).subscribe(
+  addtocartputn(id: string) {
+    this.unsub3 = this.cartservicesService.addTOCart(id).subscribe(
       {
         next: (res) => {
           console.log(res)
@@ -61,9 +78,9 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
     this.getproductId();
     this.getproductIddetails();
   }
-  itemsrc:string|null=''
-  str(src:string|null){
-    return this.itemsrc=src;
+  itemsrc: string | null = ''
+  str(src: string | null) {
+    return this.itemsrc = src;
   }
   ngOnDestroy(): void {
     this.unsub.unsubscribe()
