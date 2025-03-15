@@ -31,18 +31,17 @@ export const routes: Routes = [
         ]
     },
     {
-        path: '', component: UserComponent, resolve: { tokenValid:myResolverResolver}, children: [
+        path: '', component: UserComponent, resolve:{data: myResolverResolver }, children: [
             { path: '', redirectTo: "home", pathMatch: 'full' },
-            { path: 'home', component: HomeComponent},
+            { path: 'home', component: HomeComponent },
             { path: 'category', component: CatogaryComponent },
-            { path: 'products', component: ProductListComponent },
+            { path: 'products', loadComponent: () => import('../app/features/product/components/product-list/product-list.component').then(m => m.ProductListComponent) },
             { path: 'products-details/:id', component: ProductDetailsComponent },
-            { path: 'brands', component: BrandListComponent },
+            { path: 'brands', loadComponent: () => import('../app/features/brands/components/brand-list/brand-list.component').then(m => m.BrandListComponent) },
             { path: 'cart', component: CartListComponent },
             { path: 'wishlist', component: WishListComponent },
             { path: 'checkout/:cartid', component: CheckoutComponent },
-            { path: 'allorders', component: AllordersComponent },
-
+            { path: 'allorders', loadComponent: () => import('../app/features/orders/component/allorders/allorders.component').then(m => m.AllordersComponent) },
         ]
     }, { path: '**', component: NotfoundComponent },
 ];

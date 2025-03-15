@@ -10,11 +10,11 @@
         <h2 class="font-bold text-black/70 text-4xl font-serif ">All Category </h2>
 
     </div>
-    <div class="grid sm:grid-cols-3 md:grid-cols-4 container gap-4 mx-auto ">
+    <div class="grid sm:grid-cols-3 md:grid-cols-4  gap-4 mx-auto text-center ">
 
         @for (item of catogery; track $index) {
         <div
-            class="max-w-sm hover:shadow-shadow hover:shadow-main/50 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            class="max-w-sm  mx-auto sm:mx-0 aspect-square hover:shadow-shadow hover:shadow-main/50 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
                 <img class="rounded-t-lg h-[250px] w-full" [src]="item.image" alt="" />
             </a>

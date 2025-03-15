@@ -1,19 +1,20 @@
 @for (item of alldataorder; track $index) {
 <div class="container mx-auto my-10 ">
-    <div class="flex justify-between items-center">
-        <span class="text-2xl text-white font-serif bg-orange-600/90 px-5 py-3 w-fit rounded-md">Tatal Order Price :
+    <div class="sm:flex justify-between items-center">
+        <span class="sm:text-
+        xl text-white font-serif bg-orange-600/90 px-5 py-3 w-fit rounded-md">Tatal Order Price :
             <span class="text-white bg-main/80 rounded-md px-3 font-bold font-sans ">{{item.totalOrderPrice}}</span>
             EGP</span>
-        <h5 class=" px-5 py-3 w-fit  bg-orange-100 text-main font-serif rounded-md font-bold">
+        <h5 class=" px-5 py-3 mt-5 sm:mt-0 w-fit ms-auto bg-orange-100 text-main font-serif rounded-md font-bold">
             Paid At ( {{item.createdAt|date:'short'}})</h5>
     </div>
-    <div class="grid sm:grid-cols-3 my-5 gap-5 bg-orange-50 py-15 px-10">
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 my-5 gap-5 bg-orange-50 py-15 px-10">
 
         @for (cart of item.cartItems; track cart._id) {
             <div
-            class="max-w-sm hover:shadow-shadow hover:shadow-main/50 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            class="max-w-sm hover:shadow-shadow text-center hover:shadow-main/50 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
             <a>
-                <img class="rounded-t-lg aspect-square  w-[150px] md:w-full" [src]="cart.product.imageCover" alt="" />
+                <img class="rounded-t-lg aspect-square  md:w-[150px] md:w-full" [src]="cart.product.imageCover" alt="" />
             </a>
             <div class="px-5 pb-5 text-center">
                 <a >

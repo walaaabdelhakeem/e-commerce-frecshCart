@@ -8,11 +8,11 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, AuthenticationValidateComponent,RouterLink],
+  imports: [ReactiveFormsModule, AuthenticationValidateComponent, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit,OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {
   isloading: boolean = false;
   showpassword = false
   private readonly registerservice = inject(IauthService);
@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit,OnDestroy {
   private readonly formbuilder = inject(FormBuilder);
   massageError: string = '';
   registerGroup!: FormGroup;
-    private unsub:Subscription=new Subscription()
-  
+  private unsub: Subscription = new Subscription()
+
   // registerGroup  = new FormGroup({
   formregister() {
     this.registerGroup = this.formbuilder.group({
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit,OnDestroy {
     this.isloading = true
     if (this.registerGroup.valid) {
       console.log(this.registerGroup);
-    this.unsub=  this.registerservice.login(this.registerGroup.value).subscribe({
+      this.unsub = this.registerservice.login(this.registerGroup.value).subscribe({
         next: (res) => {
           this.isloading = false;
           if (res.message = 'success') {
@@ -62,8 +62,8 @@ export class LoginComponent implements OnInit,OnDestroy {
       this.registerGroup.markAllAsTouched()
     }
   }
-  
-  
+
+
   shpwpass() {
     this.showpassword = !this.showpassword
   }

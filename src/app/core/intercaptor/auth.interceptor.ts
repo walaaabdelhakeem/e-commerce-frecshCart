@@ -5,7 +5,7 @@ import { IauthService } from '../auth/services/iauth.service';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 const authService=inject(IauthService)
 if(typeof localStorage!=='undefined'){
-if(localStorage.getItem('token')){
+if(!!localStorage.getItem('token')){
   req=req.clone({
     setHeaders:{
       token:authService.checkifuserExist()||""

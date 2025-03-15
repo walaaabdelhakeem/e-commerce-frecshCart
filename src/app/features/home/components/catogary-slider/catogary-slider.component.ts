@@ -21,13 +21,13 @@ export class CatogarySliderComponent implements OnInit,OnDestroy {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots: true,
+    dots: false,
     rtl:document.documentElement.lang=='ar'?true:false,
     navSpeed: 700,
     navText: ['', ''],
     responsive: {
       0: {
-        items: 1
+        items: 3
       },
       400: {
         items: 3
